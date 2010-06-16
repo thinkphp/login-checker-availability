@@ -2,6 +2,6 @@
 $db = "thinkphp_xmlhttprequest";
 $host = "localhost";
 $user = "thinkphp_lancia";
-$pass = "adidas88";
+$pass = "";
 $table = "validate_users";
 ?>
