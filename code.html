@@ -1,0 +1,53 @@
+<pre><code>
+#PHP code
+
+//Header PHP for processing users
+&lt;?php
+if(isset($_GET['username']) && $_GET['username']!="") {
+
+    require_once("config.php");
+
+    $username = $_GET['username'];
+
+    if(!$handler = mysql_connect($host,$user,$pass)){
+        throw new Exception(mysql_error($handler));
+    }
+ 
+    if(!mysql_select_db($db,$handler)){
+        throw new Exception(mysql_error($handler));
+    }
+
+    $query = "SELECT * FROM $table WHERE username='".mysql_real_escape_string($username)."'";
+
+    $results = mysql_query($query);
+
+    if(mysql_num_rows($results) > 0) {
+       echo"0";
+    }else {
+       echo"1";
+    }
+} 
+
+if(isset($_GET['ajax'])) {
+
+exit();
+
+}
+
+mysql_close($handler);
+?&gt;
+
+#JS code
+      window.addEvent('domready',function(){
+
+          var validate = new checkerUsername('username',{
+                trigger: 'blur',
+                availableImage: 'checkmark.jpg',
+                takenImage: 'warning.jpg',
+                loading: 'ajax-loader.gif',
+                minLength : 3,
+                offset:{x: 4,y: 10},
+                url: '<?php echo$_SERVER['REQUEST_URI'];?>'
+          }); 
+     });
+</code></pre>
